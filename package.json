@@ -9,7 +9,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "npm install && nodemon app.js"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
