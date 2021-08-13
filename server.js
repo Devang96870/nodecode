@@ -10,7 +10,7 @@ const bodyParser = require("body-parser");
 const app = express();
 app.enable("trust proxy");
 app.use(morgan("dev"));
-
+app.set("view engine", "pug");
 // Limit requests from same API
 const limiter = rateLimit({
   max: 100,
@@ -45,7 +45,13 @@ app.use((req, res, next) => {
 app.get("/", (req, res) => {
   res.status(200).json({ Message: "Started from here" });
 });
-
+app.get("/download", (req, res) => {
+  let file = `${__dirname}/test.pem.txt`;
+  res.status(200).download(file);
+});
+app.get("/pug", function (req, res) {
+  res.render("index", { title: "Hey", message: "Hello there!" });
+});
 app.all("*", (req, res, next) => {
   res.status(400).json({ Message: "Please request proper request" });
 });
